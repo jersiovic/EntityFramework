@@ -20,14 +20,14 @@ namespace Microsoft.Data.Entity.Tests
                 {
                     new MemoryConfigurationSource
                         {
-                            { "EntityFramework:" + typeof(MyContext).Name + ":ConnectionString", "Data Source=MyConnectionString" }
+                            { "EntityFramework:" + typeof(MyContext).Name + ":ConnectionString", "MyConnectionString" }
                         }
                 };
 
             var rawOptions = new DbContextOptionsParser().ReadRawOptions(config, typeof(MyContext), new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase));
 
             Assert.Equal(1, rawOptions.Count);
-            Assert.Equal("Data Source=MyConnectionString", rawOptions["ConnectionString"]);
+            Assert.Equal("MyConnectionString", rawOptions["ConnectionString"]);
         }
 
         [Fact]
@@ -37,14 +37,14 @@ namespace Microsoft.Data.Entity.Tests
                 {
                     new MemoryConfigurationSource
                         {
-                            { "EntityFramework:" + typeof(MyContext).FullName + ":ConnectionString", "Data Source=MyConnectionString" }
+                            { "EntityFramework:" + typeof(MyContext).FullName + ":ConnectionString", "MyConnectionString" }
                         }
                 };
 
             var rawOptions = new DbContextOptionsParser().ReadRawOptions(config, typeof(MyContext), new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase));
 
             Assert.Equal(1, rawOptions.Count);
-            Assert.Equal("Data Source=MyConnectionString", rawOptions["ConnectionString"]);
+            Assert.Equal("MyConnectionString", rawOptions["ConnectionString"]);
         }
 
         [Fact]
@@ -54,14 +54,14 @@ namespace Microsoft.Data.Entity.Tests
                 {
                     new MemoryConfigurationSource
                         {
-                            { "EntityFramework:" + typeof(MyContext).Name + ":ConnectionString", "Data Source=MyConnectionString" }
+                            { "EntityFramework:" + typeof(MyContext).Name + ":ConnectionString", "MyConnectionString" }
                         }
                 };
 
             var rawOptions = new DbContextOptionsParser().ReadRawOptions<MyContext>(config, new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase));
 
             Assert.Equal(1, rawOptions.Count);
-            Assert.Equal("Data Source=MyConnectionString", rawOptions["ConnectionString"]);
+            Assert.Equal("MyConnectionString", rawOptions["ConnectionString"]);
         }
 
         [Fact]
@@ -71,14 +71,14 @@ namespace Microsoft.Data.Entity.Tests
                 {
                     new MemoryConfigurationSource
                         {
-                            { "EntityFramework:" + typeof(MyContext).FullName + ":ConnectionString", "Data Source=MyConnectionString" }
+                            { "EntityFramework:" + typeof(MyContext).FullName + ":ConnectionString", "MyConnectionString" }
                         }
                 };
 
             var rawOptions = new DbContextOptionsParser().ReadRawOptions<MyContext>(config, new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase));
 
             Assert.Equal(1, rawOptions.Count);
-            Assert.Equal("Data Source=MyConnectionString", rawOptions["ConnectionString"]);
+            Assert.Equal("MyConnectionString", rawOptions["ConnectionString"]);
         }
 
         private class MyContext : DbContext
@@ -92,7 +92,7 @@ namespace Microsoft.Data.Entity.Tests
                 {
                     new MemoryConfigurationSource
                         {
-                            { "Data:DefaultConnection:ConnectionString", "Data Source=MyConnectionString" },
+                            { "Data:DefaultConnection:ConnectionString", "MyConnectionString" },
                             { "EntityFramework:" + typeof(MyContext).Name + ":ConnectionString", "Name=Data:DefaultConnection:ConnectionString" }
                         }
                 };
@@ -100,7 +100,7 @@ namespace Microsoft.Data.Entity.Tests
             var rawOptions = new DbContextOptionsParser().ReadRawOptions(config, typeof(MyContext), new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase));
 
             Assert.Equal(1, rawOptions.Count);
-            Assert.Equal("Data Source=MyConnectionString", rawOptions["ConnectionString"]);
+            Assert.Equal("MyConnectionString", rawOptions["ConnectionString"]);
         }
 
         [Fact]
@@ -110,7 +110,7 @@ namespace Microsoft.Data.Entity.Tests
                 {
                     new MemoryConfigurationSource
                         {
-                            { "Data:DefaultConnection:ConnectionString", "Data Source=MyConnectionString" },
+                            { "Data:DefaultConnection:ConnectionString", "MyConnectionString" },
                             { "EntityFramework:" + typeof(MyContext).Name + ":ConnectionString", "name=Data:DefaultConnection:ConnectionString" }
                         }
                 };
@@ -118,7 +118,7 @@ namespace Microsoft.Data.Entity.Tests
             var rawOptions = new DbContextOptionsParser().ReadRawOptions(config, typeof(MyContext), new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase));
 
             Assert.Equal(1, rawOptions.Count);
-            Assert.Equal("Data Source=MyConnectionString", rawOptions["ConnectionString"]);
+            Assert.Equal("MyConnectionString", rawOptions["ConnectionString"]);
         }
 
         [Fact]
@@ -128,7 +128,7 @@ namespace Microsoft.Data.Entity.Tests
                 {
                     new MemoryConfigurationSource
                         {
-                            { "Data:DefaultConnection:ConnectionString", "Data Source=MyConnectionString" },
+                            { "Data:DefaultConnection:ConnectionString", "MyConnectionString" },
                             { "EntityFramework:" + typeof(MyContext).Name + ":ConnectionString", "name = Data:DefaultConnection:ConnectionString" }
                         }
                 };
@@ -136,25 +136,7 @@ namespace Microsoft.Data.Entity.Tests
             var rawOptions = new DbContextOptionsParser().ReadRawOptions(config, typeof(MyContext), new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase));
 
             Assert.Equal(1, rawOptions.Count);
-            Assert.Equal("Data Source=MyConnectionString", rawOptions["ConnectionString"]);
-        }
-
-        [Fact]
-        public void Indirect_connection_string_can_be_specified_without_name()
-        {
-            var config = new Configuration
-                {
-                    new MemoryConfigurationSource
-                        {
-                            { "Data:DefaultConnection:ConnectionString", "Data Source=MyConnectionString" },
-                            { "EntityFramework:" + typeof(MyContext).Name + ":ConnectionString", "Data:DefaultConnection:ConnectionString" }
-                        }
-                };
-
-            var rawOptions = new DbContextOptionsParser().ReadRawOptions(config, typeof(MyContext), new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase));
-
-            Assert.Equal(1, rawOptions.Count);
-            Assert.Equal("Data Source=MyConnectionString", rawOptions["ConnectionString"]);
+            Assert.Equal("MyConnectionString", rawOptions["ConnectionString"]);
         }
 
         [Fact]
@@ -164,7 +146,7 @@ namespace Microsoft.Data.Entity.Tests
                 {
                     new MemoryConfigurationSource
                         {
-                            { "Data:DefaultConnection:ConnectionString", "Data Source=MyConnectionString" },
+                            { "Data:DefaultConnection:ConnectionString", "MyConnectionString" },
                             { "EntityFramework:" + typeof(MyContext).Name + ":ConnectionString", "Name=Data:DefaultConnection:ConnectionString;Key=Value" }
                         }
                 };
@@ -198,7 +180,7 @@ namespace Microsoft.Data.Entity.Tests
                 {
                     new MemoryConfigurationSource
                         {
-                            { "EntityFramework:" + typeof(MyContext).Name + ":ConnectionString", "Data Source=MyConnectionString" }
+                            { "EntityFramework:" + typeof(MyContext).Name + ":ConnectionString", "MyConnectionString" }
                         }
                 };
 
@@ -207,7 +189,7 @@ namespace Microsoft.Data.Entity.Tests
             var rawOptions = new DbContextOptionsParser().ReadRawOptions(config, typeof(MyContext), currentOptions);
 
             Assert.Equal(2, rawOptions.Count);
-            Assert.Equal("Data Source=MyConnectionString", rawOptions["ConnectionString"]);
+            Assert.Equal("MyConnectionString", rawOptions["ConnectionString"]);
             Assert.Equal("Goo", rawOptions["Foo"]);
         }
 
@@ -218,7 +200,7 @@ namespace Microsoft.Data.Entity.Tests
                 {
                     new MemoryConfigurationSource
                         {
-                            { "EntityFramework:" + typeof(MyContext).Name + ":ConnectionString", "Data Source=MyConnectionString" }
+                            { "EntityFramework:" + typeof(MyContext).Name + ":ConnectionString", "MyConnectionString" }
                         }
                 };
 
@@ -227,7 +209,7 @@ namespace Microsoft.Data.Entity.Tests
             var rawOptions = new DbContextOptionsParser().ReadRawOptions<MyContext>(config, currentOptions);
 
             Assert.Equal(2, rawOptions.Count);
-            Assert.Equal("Data Source=MyConnectionString", rawOptions["ConnectionString"]);
+            Assert.Equal("MyConnectionString", rawOptions["ConnectionString"]);
             Assert.Equal("Goo", rawOptions["Foo"]);
         }
 
@@ -238,14 +220,14 @@ namespace Microsoft.Data.Entity.Tests
                 {
                     new MemoryConfigurationSource
                         {
-                            { "entityFramework:" + typeof(MyContext).Name + ":connectionString", "Data Source=MyConnectionString" }
+                            { "entityFramework:" + typeof(MyContext).Name + ":connectionString", "MyConnectionString" }
                         }
                 };
 
             var rawOptions = new DbContextOptionsParser().ReadRawOptions(config, typeof(MyContext), new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase));
 
             Assert.Equal(1, rawOptions.Count);
-            Assert.Equal("Data Source=MyConnectionString", rawOptions["ConnectionString"]);
+            Assert.Equal("MyConnectionString", rawOptions["ConnectionString"]);
         }
 
         [Fact]
@@ -255,7 +237,7 @@ namespace Microsoft.Data.Entity.Tests
                 {
                     new MemoryConfigurationSource
                         {
-                            { "EntityFramework:" + typeof(MyContext).Name + ":ConnectionString", "Data Source=MyConnectionString" },
+                            { "EntityFramework:" + typeof(MyContext).Name + ":ConnectionString", "MyConnectionString" },
                             { "EntityFramework:" + typeof(MyContext).Name + ":SqlServer:MaxBatchSize", "1" },
                             { "EntityFramework:" + typeof(MyContext).Name + ":SqlServer:AnotherSqlServerOption", "SqlServerOptionValue" },
                             { "EntityFramework:" + typeof(MyContext).Name + ":SomeProvider:ProviderSpecificOption", "OptionValue" },
@@ -266,7 +248,7 @@ namespace Microsoft.Data.Entity.Tests
             var rawOptions = new DbContextOptionsParser().ReadRawOptions(config, typeof(MyContext), new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase));
 
             Assert.Equal(5, rawOptions.Count);
-            Assert.Equal("Data Source=MyConnectionString", rawOptions["ConnectionString"]);
+            Assert.Equal("MyConnectionString", rawOptions["ConnectionString"]);
             Assert.Equal("1", rawOptions["SqlServer:MaxBatchSize"]);
             Assert.Equal("SqlServerOptionValue", rawOptions["SqlServer:AnotherSqlServerOption"]);
             Assert.Equal("OptionValue", rawOptions["SomeProvider:ProviderSpecificOption"]);
@@ -280,7 +262,7 @@ namespace Microsoft.Data.Entity.Tests
                 {
                     new MemoryConfigurationSource
                         {
-                            { "EntityFramework:" + typeof(MyContext).FullName + ":ConnectionString", "Data Source=MyConnectionString" },
+                            { "EntityFramework:" + typeof(MyContext).FullName + ":ConnectionString", "MyConnectionString" },
                             { "EntityFramework:" + typeof(MyContext).FullName + ":SqlServer:MaxBatchSize", "1" },
                             { "EntityFramework:" + typeof(MyContext).FullName + ":SqlServer:AnotherSqlServerOption", "SqlServerOptionValue" },
                             { "EntityFramework:" + typeof(MyContext).FullName + ":SomeProvider:ProviderSpecificOption", "OptionValue" },
@@ -291,7 +273,7 @@ namespace Microsoft.Data.Entity.Tests
             var rawOptions = new DbContextOptionsParser().ReadRawOptions(config, typeof(MyContext), new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase));
 
             Assert.Equal(5, rawOptions.Count);
-            Assert.Equal("Data Source=MyConnectionString", rawOptions["ConnectionString"]);
+            Assert.Equal("MyConnectionString", rawOptions["ConnectionString"]);
             Assert.Equal("1", rawOptions["SqlServer:MaxBatchSize"]);
             Assert.Equal("SqlServerOptionValue", rawOptions["SqlServer:AnotherSqlServerOption"]);
             Assert.Equal("OptionValue", rawOptions["SomeProvider:ProviderSpecificOption"]);
@@ -305,7 +287,7 @@ namespace Microsoft.Data.Entity.Tests
                 {
                     new MemoryConfigurationSource
                         {
-                            { "EntityFramework:" + typeof(MyContext).Name + ":ConnectionString", "Data Source=MyConnectionString" },
+                            { "EntityFramework:" + typeof(MyContext).Name + ":ConnectionString", "MyConnectionString" },
                             { "EntityFramework:" + typeof(MyContext).Name + ":SqlServer:MaxBatchSize", "1" },
                             { "EntityFramework:" + typeof(MyContext).Name + ":SqlServer:AnotherSqlServerOption", "SqlServerOptionValue" },
                             { "EntityFramework:" + typeof(MyContext).Name + ":SomeProvider:ProviderSpecificOption", "OptionValue" },
@@ -316,7 +298,7 @@ namespace Microsoft.Data.Entity.Tests
             var rawOptions = new DbContextOptionsParser().ReadRawOptions<MyContext>(config, new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase));
 
             Assert.Equal(5, rawOptions.Count);
-            Assert.Equal("Data Source=MyConnectionString", rawOptions["ConnectionString"]);
+            Assert.Equal("MyConnectionString", rawOptions["ConnectionString"]);
             Assert.Equal("1", rawOptions["SqlServer:MaxBatchSize"]);
             Assert.Equal("SqlServerOptionValue", rawOptions["SqlServer:AnotherSqlServerOption"]);
             Assert.Equal("OptionValue", rawOptions["SomeProvider:ProviderSpecificOption"]);
@@ -330,7 +312,7 @@ namespace Microsoft.Data.Entity.Tests
                 {
                     new MemoryConfigurationSource
                         {
-                            { "EntityFramework:" + typeof(MyContext).FullName + ":ConnectionString", "Data Source=MyConnectionString" },
+                            { "EntityFramework:" + typeof(MyContext).FullName + ":ConnectionString", "MyConnectionString" },
                             { "EntityFramework:" + typeof(MyContext).FullName + ":SqlServer:MaxBatchSize", "1" },
                             { "EntityFramework:" + typeof(MyContext).FullName + ":SqlServer:AnotherSqlServerOption", "SqlServerOptionValue" },
                             { "EntityFramework:" + typeof(MyContext).FullName + ":SomeProvider:ProviderSpecificOption", "OptionValue" },
@@ -341,7 +323,7 @@ namespace Microsoft.Data.Entity.Tests
             var rawOptions = new DbContextOptionsParser().ReadRawOptions<MyContext>(config, new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase));
 
             Assert.Equal(5, rawOptions.Count);
-            Assert.Equal("Data Source=MyConnectionString", rawOptions["ConnectionString"]);
+            Assert.Equal("MyConnectionString", rawOptions["ConnectionString"]);
             Assert.Equal("1", rawOptions["SqlServer:MaxBatchSize"]);
             Assert.Equal("SqlServerOptionValue", rawOptions["SqlServer:AnotherSqlServerOption"]);
             Assert.Equal("OptionValue", rawOptions["SomeProvider:ProviderSpecificOption"]);
@@ -353,13 +335,13 @@ namespace Microsoft.Data.Entity.Tests
         {
             var iniConfigFileContent =
             @"[EntityFramework]
-" + typeof(MyContext).Name + ":ConnectionString =Data Source=IniConnectionString";
+" + typeof(MyContext).Name + ":ConnectionString =IniConnectionString";
             var iniConfigFilePath = Path.GetTempFileName();
             File.WriteAllText(iniConfigFilePath, iniConfigFileContent);
 
             var memConfig = new MemoryConfigurationSource
                 {
-                    { "EntityFramework:" + typeof(MyContext).Name + ":ConnectionString", "Data Source=MemoryConnectionString" }
+                    { "EntityFramework:" + typeof(MyContext).Name + ":ConnectionString", "MemoryConnectionString" }
                 };
 
             var config = new Configuration();
@@ -369,7 +351,7 @@ namespace Microsoft.Data.Entity.Tests
             var rawOptions = new DbContextOptionsParser().ReadRawOptions(config, typeof(MyContext), new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase));
 
             Assert.Equal(1, rawOptions.Count);
-            Assert.Equal("Data Source=IniConnectionString", rawOptions["ConnectionString"]);
+            Assert.Equal("IniConnectionString", rawOptions["ConnectionString"]);
         }
 
         [Fact]
@@ -379,15 +361,15 @@ namespace Microsoft.Data.Entity.Tests
                 {
                     new MemoryConfigurationSource
                         {
-                            { "EntityFramework:" + typeof(MyContext).Name + ":ConnectionString", "Data Source=ContextNameConnectionString" },
-                            { "EntityFramework:" + typeof(MyContext).FullName + ":ConnectionString", "Data Source=ContextFullNameConnectionString" }
+                            { "EntityFramework:" + typeof(MyContext).Name + ":ConnectionString", "ContextNameConnectionString" },
+                            { "EntityFramework:" + typeof(MyContext).FullName + ":ConnectionString", "ContextFullNameConnectionString" }
                         }
                 };
 
             var rawOptions = new DbContextOptionsParser().ReadRawOptions(config, typeof(MyContext), new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase));
 
             Assert.Equal(1, rawOptions.Count);
-            Assert.Equal("Data Source=ContextFullNameConnectionString", rawOptions["ConnectionString"]);
+            Assert.Equal("ContextFullNameConnectionString", rawOptions["ConnectionString"]);
         }
     }
 }
