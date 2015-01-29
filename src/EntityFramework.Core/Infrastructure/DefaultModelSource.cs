@@ -8,13 +8,13 @@ using Microsoft.Data.Entity.Utilities;
 
 namespace Microsoft.Data.Entity.Infrastructure
 {
-    public class DefaultModelSource : IModelSource
+    public abstract class DefaultModelSource : IModelSource
     {
         private readonly ThreadSafeDictionaryCache<Type, IModel> _models = new ThreadSafeDictionaryCache<Type, IModel>();
 
         private readonly DbSetFinder _setFinder;
 
-        public DefaultModelSource([NotNull] DbSetFinder setFinder)
+        protected DefaultModelSource([NotNull] DbSetFinder setFinder)
         {
             Check.NotNull(setFinder, "setFinder");
 

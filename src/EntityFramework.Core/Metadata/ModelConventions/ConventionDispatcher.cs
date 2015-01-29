@@ -1,30 +1,26 @@
 // Copyright (c) Microsoft Open Technologies, Inc. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System.Collections.Generic;
 using JetBrains.Annotations;
 using Microsoft.Data.Entity.Metadata.Internal;
 using Microsoft.Data.Entity.Utilities;
 
 namespace Microsoft.Data.Entity.Metadata.ModelConventions
 {
-    public class ConventionsDispatcher
+    public class ConventionDispatcher
     {
-        public ConventionsDispatcher()
+        private readonly ConventionSet _conventionSet;
+
+        public ConventionDispatcher(ConventionSet conventionSet)
         {
-            EntityTypeAddedConventions = new List<IEntityTypeConvention>();
-            ForeignKeyAddedConventions = new List<IRelationshipConvention>();
+            _conventionSet = conventionSet;
         }
-
-        public virtual IList<IEntityTypeConvention> EntityTypeAddedConventions { get; }
-
-        public virtual IList<IRelationshipConvention> ForeignKeyAddedConventions { get; }
 
         public virtual InternalEntityBuilder OnEntityTypeAdded([NotNull] InternalEntityBuilder entityBuilder)
         {
             Check.NotNull(entityBuilder, "entityBuilder");
 
-            foreach (var entityTypeConvention in EntityTypeAddedConventions)
+            foreach (var entityTypeConvention in _conventionSet.EntityTypeAddedConventions)
             {
                 entityBuilder = entityTypeConvention.Apply(entityBuilder);
                 if (entityBuilder == null)
@@ -40,7 +36,7 @@ namespace Microsoft.Data.Entity.Metadata.ModelConventions
         {
             Check.NotNull(relationshipBuilder, "relationshipBuilder");
 
-            foreach (var relationshipConvention in ForeignKeyAddedConventions)
+            foreach (var relationshipConvention in _conventionSet.ForeignKeyAddedConventions)
             {
                 relationshipBuilder = relationshipConvention.Apply(relationshipBuilder);
                 if (relationshipBuilder == null)
