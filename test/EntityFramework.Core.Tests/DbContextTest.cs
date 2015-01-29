@@ -159,7 +159,7 @@ namespace Microsoft.Data.Entity.Tests
 
             using (var context = new DbContext(serviceProvider, options))
             {
-                context.Configuration.AutoDetectChangesEnabled = false;
+                context.ChangeTracker.AutoDetectChangesEnabled = false;
 
                 var stateManager = (FakeStateManager)((IDbContextServices)context).ScopedServiceProvider.GetRequiredService<StateManager>();
 
@@ -2296,7 +2296,7 @@ namespace Microsoft.Data.Entity.Tests
 
             using (var context = new ButTheHedgehogContext(provider))
             {
-                Assert.True(context.Configuration.AutoDetectChangesEnabled);
+                Assert.True(context.ChangeTracker.AutoDetectChangesEnabled);
 
                 var product = context.Attach(new Product { Id = 1, Name = "Little Hedgehogs" }).Entity;
 
@@ -2327,8 +2327,8 @@ namespace Microsoft.Data.Entity.Tests
 
             using (var context = new ButTheHedgehogContext(provider))
             {
-                context.Configuration.AutoDetectChangesEnabled = false;
-                Assert.False(context.Configuration.AutoDetectChangesEnabled);
+                context.ChangeTracker.AutoDetectChangesEnabled = false;
+                Assert.False(context.ChangeTracker.AutoDetectChangesEnabled);
 
                 var product = context.Attach(new Product { Id = 1, Name = "Little Hedgehogs" }).Entity;
 
@@ -2398,7 +2398,7 @@ namespace Microsoft.Data.Entity.Tests
         {
             using (var context = new ButTheHedgehogContext(TestHelpers.CreateServiceProvider()))
             {
-                context.Configuration.AutoDetectChangesEnabled = false;
+                context.ChangeTracker.AutoDetectChangesEnabled = false;
 
                 var entry = context.Attach(new Product { Id = 1, Name = "Little Hedgehogs" });
 
